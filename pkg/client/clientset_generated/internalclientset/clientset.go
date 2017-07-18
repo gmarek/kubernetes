@@ -29,6 +29,7 @@ import (
 	batchinternalversion "k8s.io/kubernetes/pkg/client/clientset_generated/internalclientset/typed/batch/internalversion"
 	certificatesinternalversion "k8s.io/kubernetes/pkg/client/clientset_generated/internalclientset/typed/certificates/internalversion"
 	coreinternalversion "k8s.io/kubernetes/pkg/client/clientset_generated/internalclientset/typed/core/internalversion"
+	eventsinternalversion "k8s.io/kubernetes/pkg/client/clientset_generated/internalclientset/typed/events/internalversion"
 	extensionsinternalversion "k8s.io/kubernetes/pkg/client/clientset_generated/internalclientset/typed/extensions/internalversion"
 	networkinginternalversion "k8s.io/kubernetes/pkg/client/clientset_generated/internalclientset/typed/networking/internalversion"
 	policyinternalversion "k8s.io/kubernetes/pkg/client/clientset_generated/internalclientset/typed/policy/internalversion"
@@ -47,6 +48,7 @@ type Interface interface {
 	Autoscaling() autoscalinginternalversion.AutoscalingInterface
 	Batch() batchinternalversion.BatchInterface
 	Certificates() certificatesinternalversion.CertificatesInterface
+	Events() eventsinternalversion.EventsInterface
 	Extensions() extensionsinternalversion.ExtensionsInterface
 	Networking() networkinginternalversion.NetworkingInterface
 	Policy() policyinternalversion.PolicyInterface
@@ -67,6 +69,7 @@ type Clientset struct {
 	*autoscalinginternalversion.AutoscalingClient
 	*batchinternalversion.BatchClient
 	*certificatesinternalversion.CertificatesClient
+	*eventsinternalversion.EventsClient
 	*extensionsinternalversion.ExtensionsClient
 	*networkinginternalversion.NetworkingClient
 	*policyinternalversion.PolicyClient
@@ -137,6 +140,14 @@ func (c *Clientset) Certificates() certificatesinternalversion.CertificatesInter
 		return nil
 	}
 	return c.CertificatesClient
+}
+
+// Events retrieves the EventsClient
+func (c *Clientset) Events() eventsinternalversion.EventsInterface {
+	if c == nil {
+		return nil
+	}
+	return c.EventsClient
 }
 
 // Extensions retrieves the ExtensionsClient
@@ -235,6 +246,10 @@ func NewForConfig(c *rest.Config) (*Clientset, error) {
 	if err != nil {
 		return nil, err
 	}
+	cs.EventsClient, err = eventsinternalversion.NewForConfig(&configShallowCopy)
+	if err != nil {
+		return nil, err
+	}
 	cs.ExtensionsClient, err = extensionsinternalversion.NewForConfig(&configShallowCopy)
 	if err != nil {
 		return nil, err
@@ -280,6 +295,7 @@ func NewForConfigOrDie(c *rest.Config) *Clientset {
 	cs.AutoscalingClient = autoscalinginternalversion.NewForConfigOrDie(c)
 	cs.BatchClient = batchinternalversion.NewForConfigOrDie(c)
 	cs.CertificatesClient = certificatesinternalversion.NewForConfigOrDie(c)
+	cs.EventsClient = eventsinternalversion.NewForConfigOrDie(c)
 	cs.ExtensionsClient = extensionsinternalversion.NewForConfigOrDie(c)
 	cs.NetworkingClient = networkinginternalversion.NewForConfigOrDie(c)
 	cs.PolicyClient = policyinternalversion.NewForConfigOrDie(c)
@@ -302,6 +318,7 @@ func New(c rest.Interface) *Clientset {
 	cs.AutoscalingClient = autoscalinginternalversion.New(c)
 	cs.BatchClient = batchinternalversion.New(c)
 	cs.CertificatesClient = certificatesinternalversion.New(c)
+	cs.EventsClient = eventsinternalversion.New(c)
 	cs.ExtensionsClient = extensionsinternalversion.New(c)
 	cs.NetworkingClient = networkinginternalversion.New(c)
 	cs.PolicyClient = policyinternalversion.New(c)

@@ -42,6 +42,7 @@ var (
 		"autoscaling/",
 		"batch/",
 		"certificates/",
+		"events/",
 		"extensions/",
 		"rbac/",
 		"storage/",

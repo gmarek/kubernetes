@@ -17,6 +17,7 @@ limitations under the License.
 package v1beta1
 
 import (
+	"k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
@@ -35,9 +36,9 @@ type Event struct {
 	// Required. What Origin did/failed to do.
 	Action EventAction `json:"action" protobuf:"bytes,5,opt,name=action"`
 	// Optional. On what Origin acted upon.
-	Object *ObjectReference `json:"object,omitempty" protobuf:"bytes,6,opt,name=object"`
+	Object *v1.ObjectReference `json:"object,omitempty" protobuf:"bytes,6,opt,name=object"`
 	// Optional secondary Object for more complex actions.
-	SecondaryObject *ObjectReference `json:"secondaryObject,omitempty" protobuf:"bytes,7,opt,name=secondaryObject"`
+	SecondaryObject *v1.ObjectReference `json:"secondaryObject,omitempty" protobuf:"bytes,7,opt,name=secondaryObject"`
 	// Required. Severity of the Event.
 	Severity EventSeverity `json:"severity" protobuf:"bytes,8,opt,name=severity"`
 

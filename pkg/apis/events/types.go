@@ -17,6 +17,7 @@ limitations under the License.
 package events
 
 import (
+	"k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
@@ -35,9 +36,9 @@ type Event struct {
 	// Required. What Origin did/failed to do.
 	Action EventAction
 	// Optional. On what Origin acted upon.
-	Object *ObjectReference
+	Object *v1.ObjectReference
 	// Optional secondary Object for more complex actions.
-	SecondaryObject *ObjectReference
+	SecondaryObject *v1.ObjectReference
 	// Required. Severity of the Event.
 	Severity EventSeverity
 
