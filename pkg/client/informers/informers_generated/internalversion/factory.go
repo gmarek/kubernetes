@@ -29,6 +29,7 @@ import (
 	batch "k8s.io/kubernetes/pkg/client/informers/informers_generated/internalversion/batch"
 	certificates "k8s.io/kubernetes/pkg/client/informers/informers_generated/internalversion/certificates"
 	core "k8s.io/kubernetes/pkg/client/informers/informers_generated/internalversion/core"
+	events "k8s.io/kubernetes/pkg/client/informers/informers_generated/internalversion/events"
 	extensions "k8s.io/kubernetes/pkg/client/informers/informers_generated/internalversion/extensions"
 	internalinterfaces "k8s.io/kubernetes/pkg/client/informers/informers_generated/internalversion/internalinterfaces"
 	networking "k8s.io/kubernetes/pkg/client/informers/informers_generated/internalversion/networking"
@@ -127,6 +128,7 @@ type SharedInformerFactory interface {
 	Batch() batch.Interface
 	Certificates() certificates.Interface
 	Core() core.Interface
+	Events() events.Interface
 	Extensions() extensions.Interface
 	Networking() networking.Interface
 	Policy() policy.Interface
@@ -157,6 +159,10 @@ func (f *sharedInformerFactory) Certificates() certificates.Interface {
 
 func (f *sharedInformerFactory) Core() core.Interface {
 	return core.New(f)
+}
+
+func (f *sharedInformerFactory) Events() events.Interface {
+	return events.New(f)
 }
 
 func (f *sharedInformerFactory) Extensions() extensions.Interface {
