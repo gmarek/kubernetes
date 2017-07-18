@@ -83,6 +83,7 @@ func New() *Generator {
 			`k8s.io/api/apps/v1beta1`,
 			`k8s.io/api/authentication/v1`,
 			`k8s.io/api/authentication/v1beta1`,
+			`k8s.io/api/events/v1beta1`,
 			`k8s.io/api/rbac/v1alpha1`,
 			`k8s.io/api/rbac/v1beta1`,
 			`k8s.io/api/certificates/v1beta1`,

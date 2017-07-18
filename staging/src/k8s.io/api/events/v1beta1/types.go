@@ -21,6 +21,8 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
+// +genclient=true
+
 // Event is a report of an event somewhere in the cluster. It generally denotes some state change in the system.
 type Event struct {
 	metav1.TypeMeta `json:",inline"`
