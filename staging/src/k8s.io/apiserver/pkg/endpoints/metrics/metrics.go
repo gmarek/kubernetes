@@ -91,7 +91,7 @@ var (
 			Name: "apiserver_dropped_requests",
 			Help: "Number of requests dropped with 'Try again later' response",
 		},
-		[]string{"requestKind"},
+		[]string{"request_kind"},
 	)
 	// RegisteredWatchers is a number of currently registered watchers splitted by resource.
 	RegisteredWatchers = prometheus.NewGaugeVec(
@@ -108,7 +108,7 @@ var (
 			Name: "apiserver_current_inflight_requests",
 			Help: "Maximal mumber of currently used inflight request limit of this apiserver per request kind in last second.",
 		},
-		[]string{"requestKind"},
+		[]string{"request_kind"},
 	)
 	kubectlExeRegexp = regexp.MustCompile(`^.*((?i:kubectl\.exe))`)
 
